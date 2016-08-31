@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="financeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="accounts">
+          <Key>
+            <PropertyRef Name="ReceiptNumber" />
+            <PropertyRef Name="SupplierID" />
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="ReceiptNumber" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="CustId" Type="int" Nullable="false" />
+          <Property Name="CurrentBalance" Type="int" />
+        </EntityType>
+        <EntityType Name="banks">
+          <Key>
+            <PropertyRef Name="BankNum" />
+          </Key>
+          <Property Name="BankNum" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="80" />
+          <Property Name="Phone" Type="int" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="CustId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="70" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Phone" Type="int" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="70" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Phone" Type="int" />
+        </EntityType>
+        <EntityType Name="loans">
+          <Key>
+            <PropertyRef Name="LoanNum" />
+            <PropertyRef Name="SupplierID" />
+            <PropertyRef Name="BankNum" />
+          </Key>
+          <Property Name="LoanNum" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="BankNum" Type="int" Nullable="false" />
+          <Property Name="InterestRate" Type="int" />
+          <Property Name="initilAmount" Type="int" />
+          <Property Name="CurrentBalance" Type="int" />
+        </EntityType>
+        <EntityType Name="payments">
+          <Key>
+            <PropertyRef Name="PaymentNum" />
+            <PropertyRef Name="LoanNum" />
+          </Key>
+          <Property Name="PaymentNum" Type="int" Nullable="false" />
+          <Property Name="LoanNum" Type="int" Nullable="false" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="PaymentAmount" Type="int" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="Stocklevel" Type="int" />
+          <Property Name="UnitPrice" Type="int" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="SaleID" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="CustID" />
+          </Key>
+          <Property Name="SaleID" Type="int" Nullable="false" />
+          <Property Name="DATEOFSALE" Type="date" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="CustID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="ContactName" Type="varchar" MaxLength="80" />
+          <Property Name="SupplyDate" Type="date" />
+        </EntityType>
+        <EntityType Name="transacts">
+          <Key>
+            <PropertyRef Name="TransacNumber" />
+            <PropertyRef Name="ReceiptNumber" />
+          </Key>
+          <Property Name="TransacNumber" Type="int" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="int" Nullable="false" />
+          <Property Name="TransDate" Type="date" />
+          <Property Name="Amount" Type="int" />
+        </EntityType>
+        <Association Name="accounts_ibfk_1">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+          <End Role="accounts" Type="Self.accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="accounts">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="accounts_ibfk_2">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="accounts" Type="Self.accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="CustId" />
+            </Principal>
+            <Dependent Role="accounts">
+              <PropertyRef Name="CustId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="loans_ibfk_1">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+          <End Role="loans" Type="Self.loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="loans">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="loans_ibfk_2">
+          <End Role="banks" Type="Self.banks" Multiplicity="1" />
+          <End Role="loans" Type="Self.loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="banks">
+              <PropertyRef Name="BankNum" />
+            </Principal>
+            <Dependent Role="loans">
+              <PropertyRef Name="BankNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'payments_ibfk_1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="payments_ibfk_1" />-->
+        <Association Name="products_ibfk_1">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sales_ibfk_1">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sales_ibfk_2">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="CustId" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'transacts_ibfk_1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="transacts_ibfk_1" />-->
+        <EntityContainer Name="financeModelStoreContainer">
+          <EntitySet Name="accounts" EntityType="Self.accounts" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="banks" EntityType="Self.banks" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="loans" EntityType="Self.loans" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="payments" EntityType="Self.payments" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="sales" EntityType="Self.sales" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="finance" store:Type="Tables" />
+          <EntitySet Name="transacts" EntityType="Self.transacts" Schema="finance" store:Type="Tables" />
+          <AssociationSet Name="accounts_ibfk_1" Association="Self.accounts_ibfk_1">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="accounts" EntitySet="accounts" />
+          </AssociationSet>
+          <AssociationSet Name="accounts_ibfk_2" Association="Self.accounts_ibfk_2">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="accounts" EntitySet="accounts" />
+          </AssociationSet>
+          <AssociationSet Name="loans_ibfk_1" Association="Self.loans_ibfk_1">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="loans" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="loans_ibfk_2" Association="Self.loans_ibfk_2">
+            <End Role="banks" EntitySet="banks" />
+            <End Role="loans" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="products_ibfk_1" Association="Self.products_ibfk_1">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="sales_ibfk_1" Association="Self.sales_ibfk_1">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="sales_ibfk_2" Association="Self.sales_ibfk_2">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="financeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="ReceiptNumber" />
+            <PropertyRef Name="SupplierID" />
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="ReceiptNumber" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="CustId" Type="Int32" Nullable="false" />
+          <Property Name="CurrentBalance" Type="Int32" />
+          <NavigationProperty Name="supplier" Relationship="Self.accounts_ibfk_1" FromRole="accounts" ToRole="suppliers" />
+          <NavigationProperty Name="customer" Relationship="Self.accounts_ibfk_2" FromRole="accounts" ToRole="customers" />
+        </EntityType>
+        <EntityType Name="bank">
+          <Key>
+            <PropertyRef Name="BankNum" />
+          </Key>
+          <Property Name="BankNum" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="Int32" />
+          <NavigationProperty Name="loans" Relationship="Self.loans_ibfk_2" FromRole="banks" ToRole="loans" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="CustId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Phone" Type="Int32" />
+          <NavigationProperty Name="accounts" Relationship="Self.accounts_ibfk_2" FromRole="customers" ToRole="accounts" />
+          <NavigationProperty Name="sales" Relationship="Self.sales_ibfk_2" FromRole="customers" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Phone" Type="Int32" />
+          <NavigationProperty Name="sales" Relationship="Self.sales_ibfk_1" FromRole="employees" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="loan">
+          <Key>
+            <PropertyRef Name="LoanNum" />
+            <PropertyRef Name="SupplierID" />
+            <PropertyRef Name="BankNum" />
+          </Key>
+          <Property Name="LoanNum" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="BankNum" Type="Int32" Nullable="false" />
+          <Property Name="InterestRate" Type="Int32" />
+          <Property Name="initilAmount" Type="Int32" />
+          <Property Name="CurrentBalance" Type="Int32" />
+          <NavigationProperty Name="bank" Relationship="Self.loans_ibfk_2" FromRole="loans" ToRole="banks" />
+          <NavigationProperty Name="supplier" Relationship="Self.loans_ibfk_1" FromRole="loans" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="payment">
+          <Key>
+            <PropertyRef Name="PaymentNum" />
+            <PropertyRef Name="LoanNum" />
+          </Key>
+          <Property Name="PaymentNum" Type="Int32" Nullable="false" />
+          <Property Name="LoanNum" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" />
+          <Property Name="PaymentAmount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="Stocklevel" Type="Int32" />
+          <Property Name="UnitPrice" Type="Int32" />
+          <NavigationProperty Name="supplier" Relationship="Self.products_ibfk_1" FromRole="products" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="CustID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" />
+          <Property Name="DATEOFSALE" Type="DateTime" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="CustID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="customer" Relationship="Self.sales_ibfk_2" FromRole="sales" ToRole="customers" />
+          <NavigationProperty Name="employee" Relationship="Self.sales_ibfk_1" FromRole="sales" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="ContactName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="SupplyDate" Type="DateTime" />
+          <NavigationProperty Name="accounts" Relationship="Self.accounts_ibfk_1" FromRole="suppliers" ToRole="accounts" />
+          <NavigationProperty Name="loans" Relationship="Self.loans_ibfk_1" FromRole="suppliers" ToRole="loans" />
+          <NavigationProperty Name="products" Relationship="Self.products_ibfk_1" FromRole="suppliers" ToRole="products" />
+        </EntityType>
+        <EntityType Name="transact">
+          <Key>
+            <PropertyRef Name="TransacNumber" />
+            <PropertyRef Name="ReceiptNumber" />
+          </Key>
+          <Property Name="TransacNumber" Type="Int32" Nullable="false" />
+          <Property Name="ReceiptNumber" Type="Int32" Nullable="false" />
+          <Property Name="TransDate" Type="DateTime" />
+          <Property Name="Amount" Type="Int32" />
+        </EntityType>
+        <Association Name="accounts_ibfk_1">
+          <End Role="suppliers" Type="Self.supplier" Multiplicity="1" />
+          <End Role="accounts" Type="Self.account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="accounts">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="accounts_ibfk_2">
+          <End Role="customers" Type="Self.customer" Multiplicity="1" />
+          <End Role="accounts" Type="Self.account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="CustId" />
+            </Principal>
+            <Dependent Role="accounts">
+              <PropertyRef Name="CustId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="loans_ibfk_2">
+          <End Role="banks" Type="Self.bank" Multiplicity="1" />
+          <End Role="loans" Type="Self.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="banks">
+              <PropertyRef Name="BankNum" />
+            </Principal>
+            <Dependent Role="loans">
+              <PropertyRef Name="BankNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sales_ibfk_2">
+          <End Role="customers" Type="Self.customer" Multiplicity="1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="CustId" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="CustID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sales_ibfk_1">
+          <End Role="employees" Type="Self.employee" Multiplicity="1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="loans_ibfk_1">
+          <End Role="suppliers" Type="Self.supplier" Multiplicity="1" />
+          <End Role="loans" Type="Self.loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="loans">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="products_ibfk_1">
+          <End Role="suppliers" Type="Self.supplier" Multiplicity="1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="financeEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="accounts" EntityType="Self.account" />
+          <EntitySet Name="banks" EntityType="Self.bank" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="loans" EntityType="Self.loan" />
+          <EntitySet Name="payments" EntityType="Self.payment" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="sales" EntityType="Self.sale" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="transacts" EntityType="Self.transact" />
+          <AssociationSet Name="accounts_ibfk_1" Association="Self.accounts_ibfk_1">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="accounts" EntitySet="accounts" />
+          </AssociationSet>
+          <AssociationSet Name="accounts_ibfk_2" Association="Self.accounts_ibfk_2">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="accounts" EntitySet="accounts" />
+          </AssociationSet>
+          <AssociationSet Name="loans_ibfk_2" Association="Self.loans_ibfk_2">
+            <End Role="banks" EntitySet="banks" />
+            <End Role="loans" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="sales_ibfk_2" Association="Self.sales_ibfk_2">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="sales_ibfk_1" Association="Self.sales_ibfk_1">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="loans_ibfk_1" Association="Self.loans_ibfk_1">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="loans" EntitySet="loans" />
+          </AssociationSet>
+          <AssociationSet Name="products_ibfk_1" Association="Self.products_ibfk_1">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="financeModelStoreContainer" CdmEntityContainer="financeEntities1">
+          <EntitySetMapping Name="accounts">
+            <EntityTypeMapping TypeName="financeModel.account">
+              <MappingFragment StoreEntitySet="accounts">
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+                <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="banks">
+            <EntityTypeMapping TypeName="financeModel.bank">
+              <MappingFragment StoreEntitySet="banks">
+                <ScalarProperty Name="BankNum" ColumnName="BankNum" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="financeModel.customer">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="financeModel.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loans">
+            <EntityTypeMapping TypeName="financeModel.loan">
+              <MappingFragment StoreEntitySet="loans">
+                <ScalarProperty Name="LoanNum" ColumnName="LoanNum" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="BankNum" ColumnName="BankNum" />
+                <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
+                <ScalarProperty Name="initilAmount" ColumnName="initilAmount" />
+                <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payments">
+            <EntityTypeMapping TypeName="financeModel.payment">
+              <MappingFragment StoreEntitySet="payments">
+                <ScalarProperty Name="PaymentNum" ColumnName="PaymentNum" />
+                <ScalarProperty Name="LoanNum" ColumnName="LoanNum" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="financeModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Stocklevel" ColumnName="Stocklevel" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales">
+            <EntityTypeMapping TypeName="financeModel.sale">
+              <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="DATEOFSALE" ColumnName="DATEOFSALE" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="financeModel.supplier">
+              <MappingFragment StoreEntitySet="suppliers">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="SupplyDate" ColumnName="SupplyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transacts">
+            <EntityTypeMapping TypeName="financeModel.transact">
+              <MappingFragment StoreEntitySet="transacts">
+                <ScalarProperty Name="TransacNumber" ColumnName="TransacNumber" />
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="financeModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="accounts">
+    <Key>
+      <PropertyRef Name="ReceiptNumber" />
+      <PropertyRef Name="SupplierID" />
+      <PropertyRef Name="CustId" />
+    </Key>
+    <Property Name="ReceiptNumber" Type="int" Nullable="false" />
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="CustId" Type="int" Nullable="false" />
+    <Property Name="CurrentBalance" Type="int" />
+  </EntityType>
+  <EntityType Name="banks">
+    <Key>
+      <PropertyRef Name="BankNum" />
+    </Key>
+    <Property Name="BankNum" Type="int" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="80" />
+    <Property Name="Phone" Type="int" />
+  </EntityType>
+  <EntityType Name="customers">
+    <Key>
+      <PropertyRef Name="CustId" />
+    </Key>
+    <Property Name="CustId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="70" />
+    <Property Name="Age" Type="int" />
+    <Property Name="Phone" Type="int" />
+  </EntityType>
+  <EntityType Name="employees">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="70" />
+    <Property Name="Age" Type="int" />
+    <Property Name="Phone" Type="int" />
+  </EntityType>
+  <EntityType Name="loans">
+    <Key>
+      <PropertyRef Name="LoanNum" />
+      <PropertyRef Name="SupplierID" />
+      <PropertyRef Name="BankNum" />
+    </Key>
+    <Property Name="LoanNum" Type="int" Nullable="false" />
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="BankNum" Type="int" Nullable="false" />
+    <Property Name="InterestRate" Type="int" />
+    <Property Name="initilAmount" Type="int" />
+    <Property Name="CurrentBalance" Type="int" />
+  </EntityType>
+  <EntityType Name="payments">
+    <Key>
+      <PropertyRef Name="PaymentNum" />
+      <PropertyRef Name="LoanNum" />
+    </Key>
+    <Property Name="PaymentNum" Type="int" Nullable="false" />
+    <Property Name="LoanNum" Type="int" Nullable="false" />
+    <Property Name="PaymentDate" Type="date" />
+    <Property Name="PaymentAmount" Type="int" />
+  </EntityType>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="ProductId" />
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="Stocklevel" Type="int" />
+    <Property Name="UnitPrice" Type="int" />
+  </EntityType>
+  <EntityType Name="sales">
+    <Key>
+      <PropertyRef Name="SaleID" />
+      <PropertyRef Name="EmployeeId" />
+      <PropertyRef Name="CustID" />
+    </Key>
+    <Property Name="SaleID" Type="int" Nullable="false" />
+    <Property Name="DATEOFSALE" Type="date" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="CustID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" />
+  </EntityType>
+  <EntityType Name="suppliers">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="ContactName" Type="varchar" MaxLength="80" />
+    <Property Name="SupplyDate" Type="date" />
+  </EntityType>
+  <EntityType Name="transacts">
+    <Key>
+      <PropertyRef Name="TransacNumber" />
+      <PropertyRef Name="ReceiptNumber" />
+    </Key>
+    <Property Name="TransacNumber" Type="int" Nullable="false" />
+    <Property Name="ReceiptNumber" Type="int" Nullable="false" />
+    <Property Name="TransDate" Type="date" />
+    <Property Name="Amount" Type="int" />
+  </EntityType>
+  <Association Name="accounts_ibfk_1">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+    <End Role="accounts" Type="Self.accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="accounts">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="accounts_ibfk_2">
+    <End Role="customers" Type="Self.customers" Multiplicity="1" />
+    <End Role="accounts" Type="Self.accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="CustId" />
+      </Principal>
+      <Dependent Role="accounts">
+        <PropertyRef Name="CustId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="loans_ibfk_1">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+    <End Role="loans" Type="Self.loans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="loans">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="loans_ibfk_2">
+    <End Role="banks" Type="Self.banks" Multiplicity="1" />
+    <End Role="loans" Type="Self.loans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="banks">
+        <PropertyRef Name="BankNum" />
+      </Principal>
+      <Dependent Role="loans">
+        <PropertyRef Name="BankNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'payments_ibfk_1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="payments_ibfk_1" />-->
+  <Association Name="products_ibfk_1">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+    <End Role="products" Type="Self.products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sales_ibfk_1">
+    <End Role="employees" Type="Self.employees" Multiplicity="1" />
+    <End Role="sales" Type="Self.sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employees">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="sales">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sales_ibfk_2">
+    <End Role="customers" Type="Self.customers" Multiplicity="1" />
+    <End Role="sales" Type="Self.sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="CustId" />
+      </Principal>
+      <Dependent Role="sales">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'transacts_ibfk_1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="transacts_ibfk_1" />-->
+  <EntityContainer Name="financeModelStoreContainer">
+    <EntitySet Name="accounts" EntityType="Self.accounts" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="banks" EntityType="Self.banks" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="customers" EntityType="Self.customers" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="employees" EntityType="Self.employees" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="loans" EntityType="Self.loans" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="payments" EntityType="Self.payments" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="products" EntityType="Self.products" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="sales" EntityType="Self.sales" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="finance" store:Type="Tables" />
+    <EntitySet Name="transacts" EntityType="Self.transacts" Schema="finance" store:Type="Tables" />
+    <AssociationSet Name="accounts_ibfk_1" Association="Self.accounts_ibfk_1">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="accounts" EntitySet="accounts" />
+    </AssociationSet>
+    <AssociationSet Name="accounts_ibfk_2" Association="Self.accounts_ibfk_2">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="accounts" EntitySet="accounts" />
+    </AssociationSet>
+    <AssociationSet Name="loans_ibfk_1" Association="Self.loans_ibfk_1">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="loans" EntitySet="loans" />
+    </AssociationSet>
+    <AssociationSet Name="loans_ibfk_2" Association="Self.loans_ibfk_2">
+      <End Role="banks" EntitySet="banks" />
+      <End Role="loans" EntitySet="loans" />
+    </AssociationSet>
+    <AssociationSet Name="products_ibfk_1" Association="Self.products_ibfk_1">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="sales_ibfk_1" Association="Self.sales_ibfk_1">
+      <End Role="employees" EntitySet="employees" />
+      <End Role="sales" EntitySet="sales" />
+    </AssociationSet>
+    <AssociationSet Name="sales_ibfk_2" Association="Self.sales_ibfk_2">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="sales" EntitySet="sales" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

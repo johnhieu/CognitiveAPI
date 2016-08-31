@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ff1c44af54054dc8a888c58018ce1d27" Name="Diagram1">
+        <EntityTypeShape EntityType="financeModel.account" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.bank" Width="1.5" PointX="3.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.customer" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.employee" Width="1.5" PointX="0.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.loan" Width="1.5" PointX="6" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.payment" Width="1.5" PointX="5.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.product" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.sale" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.supplier" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeModel.transact" Width="1.5" PointX="7.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="financeModel.accounts_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="financeModel.accounts_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="financeModel.loans_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="financeModel.sales_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="financeModel.sales_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="financeModel.loans_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="financeModel.products_ibfk_1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

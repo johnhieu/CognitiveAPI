@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="financeModelStoreContainer" CdmEntityContainer="financeEntities1">
+    <EntitySetMapping Name="accounts">
+      <EntityTypeMapping TypeName="financeModel.account">
+        <MappingFragment StoreEntitySet="accounts">
+          <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="banks">
+      <EntityTypeMapping TypeName="financeModel.bank">
+        <MappingFragment StoreEntitySet="banks">
+          <ScalarProperty Name="BankNum" ColumnName="BankNum" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="customers">
+      <EntityTypeMapping TypeName="financeModel.customer">
+        <MappingFragment StoreEntitySet="customers">
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="financeModel.employee">
+        <MappingFragment StoreEntitySet="employees">
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="loans">
+      <EntityTypeMapping TypeName="financeModel.loan">
+        <MappingFragment StoreEntitySet="loans">
+          <ScalarProperty Name="LoanNum" ColumnName="LoanNum" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="BankNum" ColumnName="BankNum" />
+          <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
+          <ScalarProperty Name="initilAmount" ColumnName="initilAmount" />
+          <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="financeModel.payment">
+        <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="PaymentNum" ColumnName="PaymentNum" />
+          <ScalarProperty Name="LoanNum" ColumnName="LoanNum" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="financeModel.product">
+        <MappingFragment StoreEntitySet="products">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="Stocklevel" ColumnName="Stocklevel" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sales">
+      <EntityTypeMapping TypeName="financeModel.sale">
+        <MappingFragment StoreEntitySet="sales">
+          <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+          <ScalarProperty Name="DATEOFSALE" ColumnName="DATEOFSALE" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="CustID" ColumnName="CustID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="suppliers">
+      <EntityTypeMapping TypeName="financeModel.supplier">
+        <MappingFragment StoreEntitySet="suppliers">
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="SupplyDate" ColumnName="SupplyDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transacts">
+      <EntityTypeMapping TypeName="financeModel.transact">
+        <MappingFragment StoreEntitySet="transacts">
+          <ScalarProperty Name="TransacNumber" ColumnName="TransacNumber" />
+          <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
