@@ -132,3 +132,6 @@ D:\University\IT\Subject\Year 3\Industry Project\Assignments\CognitiveDecisionSy
 D:\University\IT\Subject\Year 3\Industry Project\Assignments\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\bin\ru\System.Spatial.resources.dll
 D:\University\IT\Subject\Year 3\Industry Project\Assignments\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\bin\zh-Hans\System.Spatial.resources.dll
 D:\University\IT\Subject\Year 3\Industry Project\Assignments\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\bin\zh-Hant\System.Spatial.resources.dll
+D:\University\IT\Subject\Year 3\Industry Project\Assignments\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\bin\System.Web.Cors.dll
+D:\University\IT\Subject\Year 3\Industry Project\Assignments\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\bin\System.Web.Http.Cors.dll
+D:\University\IT\Subject\Year 3\Industry Project\Assignments\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\CognitiveDecisionSystemAPI\bin\System.Web.Http.Cors.xml

@@ -6,20 +6,18 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CognitiveDecisionSystemAPI.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
     
     public partial class account
-    {
-        [Key]
+    {   [Key]
         public int ReceiptNumber { get; set; }
         public int SupplierID { get; set; }
         public int CustId { get; set; }

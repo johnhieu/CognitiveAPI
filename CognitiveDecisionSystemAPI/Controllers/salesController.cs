@@ -12,6 +12,8 @@ using System.Web.OData;
 using System.Web.OData.Query;
 using System.Web.OData.Routing;
 using CognitiveDecisionSystemAPI.Models;
+using System.Web.Http.Cors;
+
 
 namespace CognitiveDecisionSystemAPI.Controllers
 {
@@ -27,6 +29,9 @@ namespace CognitiveDecisionSystemAPI.Controllers
     builder.EntitySet<employee>("employees"); 
     config.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
+
+    // Please look at the comments in the accountsController for more details
+    [EnableCors(origins: "http://localhost:52527", headers: "*", methods: "*")]
     public class salesController : ODataController
     {
         private financeEntities1 db = new financeEntities1();
